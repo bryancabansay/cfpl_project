@@ -1,5 +1,5 @@
 from rply import ParserGenerator
-from ast import Assignment
+from ast import Declaration
 
 pg = ParserGenerator(
     # A list of all token names, accepted by the parser.
@@ -13,7 +13,7 @@ class DeclarationParser:
         
     @pg.production('var_decl : VAR assignment data_type')
     def var_decl(p):
-        return Assignment(
+        return Declaration(
             data      = p[1],
             data_type = p[2].gettokentype()
         )

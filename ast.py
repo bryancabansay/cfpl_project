@@ -36,13 +36,15 @@ class Print():
     def eval(self):
         print(self.value.eval())
 
-class Assignment():
+class Declaration():
     def __init__(self, data, data_type):
         self.data      = data
         self.data_type = data_type.strip()
 
     def eval(self):        
-        for item in self.data:                
+        for item in self.data:
+            if item['identifier'] in variables:
+                raise Exception("Variable already assigned")
             if 'AS_INT' in self.data_type:
                 variables[item['identifier']] = int(item['value'])
             elif 'AS_FLOAT' in self.data_type:
@@ -52,7 +54,7 @@ class Assignment():
                 if value == '0':
                     variables[item['identifier']] = ''
                 elif len(value) > 1:
-                    raise Exception("Improper char value.")
+                    raise Exception("Improper char value used in " + item['identifier'] + ".")
                 else:
                     variables[item['identifier']] = value
             elif 'AS_BOOL' in self.data_type:
@@ -61,5 +63,23 @@ class Assignment():
                     variables[item['identifier']] = True
                 elif value == "FALSE":
                     variables[item['identifier']] = False
+                elif value == "0":
+                    variables[item['identifier']] = False
                 else:
-                    raise Exception("Improper boolean value.")
+                    raise Exception("Improper boolean value used in " + item['identifier'] + ".")
+
+
+class Assignment():
+    def __init__(self, identifier, value):
+        self.identifier = identifier
+        self.value      = value
+
+    def eval(self):
+        var = variables[self.identifier]
+        if type(var) != type(self.value):
+            raise Exception("Incorrect data type being assigned for " + self.identifier + ".")
+        if type(var) == str and (len(var) > 1):
+            raise Exception("Incorrect data type being assigned for " + self.identifier + ".")
+        variables[self.identifier] = self.value
+            
+        
