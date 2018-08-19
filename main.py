@@ -3,8 +3,9 @@ from decl_parser import DeclarationParser
 from global_vars import *
 
 text_input = """
-VAR XYZ = 123.0 AS FLOAT
-VAR test = 321 AS INT
+VAR abc, b, c AS INT
+VAR x, w_23='w' AS CHAR
+VAR t="TRUE", f = "FALSE" AS BOOL
 """
 
 parser = DeclarationParser()

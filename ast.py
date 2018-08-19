@@ -37,13 +37,29 @@ class Print():
         print(self.value.eval())
 
 class Assignment():
-    def __init__(self, identifier, value, data_type):
-        self.identifier =identifier.strip()
-        self.value = value
+    def __init__(self, data, data_type):
+        self.data      = data
         self.data_type = data_type.strip()
 
-    def eval(self):
-        if 'AS_INT' in self.data_type:
-            variables[self.identifier] = int(self.value)
-        elif 'AS_FLOAT' in self.data_type:
-            variables[self.identifier] = float(self.value)
+    def eval(self):        
+        for item in self.data:                
+            if 'AS_INT' in self.data_type:
+                variables[item['identifier']] = int(item['value'])
+            elif 'AS_FLOAT' in self.data_type:
+                variables[item['identifier']] = float(item['value'])
+            elif 'AS_CHAR' in self.data_type:
+                value = item['value'].replace("'", "")
+                if value == '0':
+                    variables[item['identifier']] = ''
+                elif len(value) > 1:
+                    raise Exception("Improper char value.")
+                else:
+                    variables[item['identifier']] = value
+            elif 'AS_BOOL' in self.data_type:
+                value = item['value'].replace("\"","")
+                if value == "TRUE":                    
+                    variables[item['identifier']] = True
+                elif value == "FALSE":
+                    variables[item['identifier']] = False
+                else:
+                    raise Exception("Improper boolean value.")
