@@ -26,6 +26,13 @@ class AssignParser:
             identifier = p[0].getstr(),
             value      = p[2]
         )
+
+    @pg.production('expression : IDENTIFIER EQUAL expression')
+    def var_decl(p):        
+        return Assignment(
+            identifier = p[0].getstr(),
+            value      = p[2]
+        )
     
     @pg.production('expression : INT')
     @pg.production('expression : FLOAT')
