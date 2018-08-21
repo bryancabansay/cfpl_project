@@ -1,4 +1,5 @@
 from rply.token import BaseBox
+from rply.token import Token
 from global_vars import *
 
 class Number(BaseBox):
@@ -76,10 +77,16 @@ class Assignment():
 
     def eval(self):
         var = variables[self.identifier]
-        if type(var) != type(self.value):
+        obj_type = type(self.value)
+        result = self.value        
+        if obj_type == Token:
+            result = variables[self.value.getstr()]
+        if obj_type == Add or obj_type == Sub or obj_type == Mul or obj_type == Div or obj_type == Number:
+            result = self.value.eval()
+        if type(var) != type(result):
             raise Exception("Incorrect data type being assigned for " + self.identifier + ".")
         if type(var) == str and (len(var) > 1):
             raise Exception("Incorrect data type being assigned for " + self.identifier + ".")
-        variables[self.identifier] = self.value
+        variables[self.identifier] = result
             
         

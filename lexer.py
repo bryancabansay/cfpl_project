@@ -2,6 +2,8 @@ from rply import LexerGenerator
 
 lg = LexerGenerator()
 
+lg.add('FLOAT', r'[-+]?\d*\.\d+')
+lg.add('INT', r'[-+]?[0-9]+')
 lg.add('OUTPUT', r'OUTPUT:')
 lg.add('PRINT', r'print')
 lg.add('PLUS', r'\+')
@@ -15,8 +17,6 @@ lg.add('NEW_LINE', r'\n')
 # Variable Declaration tokens
 lg.add('VAR', r'VAR')
 lg.add('EQUAL', r'=')
-lg.add('FLOAT', r'[-+]?\d*\.\d+')
-lg.add('INT', r'[-+]?[0-9]+')
 lg.add('CHAR', r'\'[a-zA-Z]{1}\'')
 lg.add('BOOL', r'("TRUE"|"FALSE")')
 lg.add('COMMA', r',')

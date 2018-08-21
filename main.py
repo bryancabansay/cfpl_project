@@ -4,13 +4,12 @@ from assign_parser import AssignParser
 from global_vars   import *
 
 text_input = """
-VAR abc, b, c AS INT
-VAR x, w_23='x' AS CHAR
-VAR t="TRUE", f = "FALSE", z AS BOOL
-abc = 1111
-t = "FALSE"
-z = "TRUE"
-t = "TRUE"
+VAR xyz, abc=100 AS INT
+xyz= ((100 *5)/10 + 10) * -1
+xyz = abc
+xyz = (100 *5)
+abc = -1
+abc = xyz + 1
 """
 
 dcl_parser = DeclarationParser()
